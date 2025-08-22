@@ -25,7 +25,7 @@ public class Url {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "url-original", nullable = false, unique = true)
-    private String url;
+    private String originalUrl;
     @Column(name = "short-url", nullable = false, unique = true, length = 10)
     private String shortUrl;
     @Column(nullable = false)
