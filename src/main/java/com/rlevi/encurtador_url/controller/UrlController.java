@@ -1,9 +1,5 @@
 package com.rlevi.encurtador_url.controller;
 
-import java.util.Map;
-
-import com.rlevi.encurtador_url.service.UrlService;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.rlevi.encurtador_url.dto.ShortUrlRequest;
+import com.rlevi.encurtador_url.dto.ShortUrlResponse;
+import com.rlevi.encurtador_url.service.UrlService;
 
 @RestController
 @RequestMapping("/")
@@ -23,10 +23,9 @@ public class UrlController {
     }
 
     @PostMapping()
-    public ResponseEntity<Map<String, String>> shortUrl(@RequestBody Map<String, String> body) {
-        String originalUrl = body.get("url");
-        String shortUrl = service.shotUrl(originalUrl);
-        return ResponseEntity.ok(Map.of("url", "http://localhost:8080/" + shortUrl));
+    public ResponseEntity<ShortUrlResponse> shortUrl(@RequestBody ShortUrlRequest request) {
+        String shortUrl = service.shotUrl(request.url());
+        return ResponseEntity.ok(new ShortUrlResponse("https://localhost:8080/" + shortUrl));
     }
 
     @GetMapping("/{shortUrl}")
