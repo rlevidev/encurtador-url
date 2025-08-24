@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.rlevi.encurtador_url.dto.ShortUrlRequest;
@@ -25,7 +26,10 @@ public class UrlController {
     @PostMapping()
     public ResponseEntity<ShortUrlResponse> shortUrl(@RequestBody ShortUrlRequest request) {
         String shortUrl = service.shotUrl(request.url());
-        return ResponseEntity.ok(new ShortUrlResponse("https://localhost:8080/" + shortUrl));
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/")
+                .toUriString();
+        return ResponseEntity.ok(new ShortUrlResponse(baseUrl + shortUrl));
     }
 
     @GetMapping("/{shortUrl}")
