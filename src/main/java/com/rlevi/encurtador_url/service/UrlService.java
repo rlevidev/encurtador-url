@@ -3,10 +3,10 @@ package com.rlevi.encurtador_url.service;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+import org.springframework.stereotype.Service;
+
 import com.rlevi.encurtador_url.model.Url;
 import com.rlevi.encurtador_url.repository.UrlRepository;
-
-import org.springframework.stereotype.Service;
 
 @Service
 public class UrlService {
@@ -19,7 +19,7 @@ public class UrlService {
         this.urlRepository = repository;
     }
 
-    public String shotUrl(String originalUrl) {
+    public String shortUrl(String originalUrl) {
         String shortUrl = generateCode();
         Url url = Url.builder()
                 .shortUrl(shortUrl)

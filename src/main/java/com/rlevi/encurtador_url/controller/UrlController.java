@@ -14,6 +14,8 @@ import com.rlevi.encurtador_url.dto.ShortUrlRequest;
 import com.rlevi.encurtador_url.dto.ShortUrlResponse;
 import com.rlevi.encurtador_url.service.UrlService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/")
 public class UrlController {
@@ -24,8 +26,8 @@ public class UrlController {
     }
 
     @PostMapping()
-    public ResponseEntity<ShortUrlResponse> shortUrl(@RequestBody ShortUrlRequest request) {
-        String shortUrl = service.shotUrl(request.url());
+    public ResponseEntity<ShortUrlResponse> shortUrl(@Valid @RequestBody ShortUrlRequest request) {
+        String shortUrl = service.shortUrl(request.url());
         String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/")
                 .toUriString();
